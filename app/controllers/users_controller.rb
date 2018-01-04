@@ -1,6 +1,6 @@
 require './config/environment'
 
-class TrainersController < ApplicationController
+class UsersController < ApplicationController
   use Rack::Flash
 
   get '/signup' do
