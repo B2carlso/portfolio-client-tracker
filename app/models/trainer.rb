@@ -1,5 +1,5 @@
 class Trainer < ActiveRecord::Base
 
   has_many :clients
-  has_secured_password
+  has_secure_password
 end
