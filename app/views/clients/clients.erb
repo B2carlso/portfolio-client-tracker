@@ -1,0 +1,4 @@
+<h1>Welcome, <%=@user.username%></h1>
+<%Client.all.each do |client|%>
+  <%=client.user.username%>: <%=client.name%>
+<%end%>
