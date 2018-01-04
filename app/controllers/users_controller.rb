@@ -1,25 +1,26 @@
 require './config/environment'
 
 class UsersController < ApplicationController
-  use Rack::Flash
+
 
   get '/signup' do
-   # binding.pry
+    #binding.pry
     if !logged_in?
-       erb :'trainers/new'
+       erb :'users/new'
      else
         redirect to '/clients'
       end
     end
 
     post '/signup' do
+      binding.pry
      if params[:name] == "" || params[:username] == "" || params[:email] == "" || params[:password] == ""
         redirect to '/signup'
       else
-        @trainer = Trainer.new(name: params[:name], username: params[:username], email: params[:email], password: params[:password])
-        @trainer.save
+        @user = User.new(name: params[:name], username: params[:username], email: params[:email], password: params[:password])
+        @user.save
 
-        session[:trainer_id] = @trainer.id
+        session[:user_id] = @user.id
         redirect to '/clients'
 
        end
@@ -29,7 +30,7 @@ class UsersController < ApplicationController
      if logged_in?
        redirect to '/clients'
      else
-       erb :'trainers/login'
+       erb :'users/login'
      end
    end
 end

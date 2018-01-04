@@ -2,11 +2,11 @@ class ClientsController < ApplicationController
 
   get '/clients' do
      if logged_in?
-       @trainer = current_trainer
+       @user = current_user
        @clients = Client.all
        erb :'clients/clients'
      else
-       redirect to 'trainers/login'
+       redirect to 'users/login'
      end
    end
 
@@ -24,7 +24,7 @@ class ClientsController < ApplicationController
       redirect "/clients/new"
     else
       @client = Client.create(:name => params[:name])
-      @client.trainer_id = current_trainer.id
+      @client.user_id = current_user.id
 
       @client.save
     end
@@ -61,7 +61,7 @@ class ClientsController < ApplicationController
 
   delete '/clients/:id/delete' do
     @client = Client.find_by_id(params[:id])
-    if logged_in? && @client.trainer_id == current_trainer.id
+    if logged_in? && @client.user_id == current_user.id
       @client.delete
       redirect '/clients'
     else
