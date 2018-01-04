@@ -1,6 +1,7 @@
 require './config/environment'
 
 class TrainersController < ApplicationController
+  use Rack::Flash
 
   get '/signup' do
    # binding.pry
@@ -26,7 +27,7 @@ class TrainersController < ApplicationController
 
     get '/login' do
      if logged_in?
-       redirect to '/tweets'
+       redirect to '/clients'
      else
        erb :'trainers/login'
      end
