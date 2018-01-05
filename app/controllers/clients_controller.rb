@@ -19,14 +19,24 @@ class ClientsController < ApplicationController
       end
     end
 
-    post '/clients' do
-    if params[:name].empty?
-      redirect "/clients/new"
-    else
-      @client = Client.create(:name => params[:name])
-      @client.user_id = current_user.id
+    #post '/clients' do
+    #if params[:name].empty?
+      #redirect "/clients/new"
+    #else
+      #@client = Client.create(:name => params[:name])
+      #@client.user_id = current_user.id
+      #@client = Client.create(name: params[:name], age: params[:age], user_id: current_user.id)
 
-      @client.save
+      #@client.save
+    ##end
+  #end
+
+  post '/clients' do
+    if params[:name].empty?
+      redirect '/clients/new'
+    else
+      @client = Client.create(name: params[:name], age: params[:age], user_id: current_user.id)
+      redirect :"/clients/#{@client.id}"
     end
   end
 
