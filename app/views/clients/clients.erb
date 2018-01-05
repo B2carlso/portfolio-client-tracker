@@ -1,5 +1,10 @@
 <h1>Welcome, <%=@user.username%></h1>
 
+<%Client.all.each do |client|%>
+<%=client.name%>
+
+<%end%>
+
 
 
 <p id="add-client"> <a href="/clients/new">Add Client</a></p>
