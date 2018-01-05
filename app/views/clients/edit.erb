@@ -1,0 +1,10 @@
+<h3>Edit Client:</h3>
+<p><%=@tweet.content%></p>
+<form action="/clients/<%=@client.id%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="text" name="name" placeholder="Name">
+  <br>
+  <input type="text" name="age" placeholder="Age">
+  <br>
+  <input type="submit" value="submit">
+</form>
