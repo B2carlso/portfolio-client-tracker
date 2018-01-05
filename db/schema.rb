@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(version: 20180104010645) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
-    t.string "age"
-    t.string "trainer_id"
+    t.integer "age"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
