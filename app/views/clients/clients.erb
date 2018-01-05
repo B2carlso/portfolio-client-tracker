@@ -1,9 +1,19 @@
 <h1>Welcome, <%=@user.username%></h1>
 
-<%Client.all.each do |client|%>
-<%=client.name%>
+<!--<%Client.all.each do |client|%>-->
+<!--<%=client.name%>-->
+    <ul>
+      <%if @user.clients.empty? %>
+      <li>- none </li>
+      <% end %>
+    <%@user.clients.each do |client|%>
+      <li>- <%=client.name%></li>
+      <%end%>
+    </ul>
 
-<%end%>
+    <%end%>
+
+
 
 
 
