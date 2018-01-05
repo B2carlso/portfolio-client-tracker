@@ -1,5 +1,8 @@
 <h1>Your Clients</h1>
 <%@trainer.clients.all.each do |client|%>
   <%=client.name%>
+  <%if @user.clients.empty?%>
+        <h2 >Add a client</h2>
+        <% end %>
   <br></br>
 <%end%>
