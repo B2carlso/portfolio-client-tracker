@@ -51,8 +51,8 @@ post "/clients" do
 
       user.clients << clients
       user.save
-      client.save
-      redirect "/users/" + user.id.to_s
+      clients.save
+      redirect "/clients" #+ user.id.to_s
     else
       redirect "/clients/new"
     end
