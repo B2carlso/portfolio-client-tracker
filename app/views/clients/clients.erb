@@ -2,19 +2,27 @@
 
 <!--<%Client.all.each do |client|%>-->
 <!--<%=client.name%>-->
-    <ul>
+
+
+    <!--<ul>
       <%if @user.clients.empty? %>
       <li>- none </li>
       <% end %>
     <%@user.clients.each do |client|%>
-      <li>- <%=client.name%></li>
+      <li><a href="/clients/<%=client.id%>"><%= client.name %></a></li>
       <%end%>
-    </ul>
+    </ul>-->
+
+    <p> Your Clients: </p>
+<% if @clients.length == 0 %>
+  <p> You have no clients. Add a client using the link below.</p>
+<% end %>
+<% @clients.each do |client| %>
+  <ul>
+    <li><a href="/clients/<%=client.id%>"><%= client.name %></a></li>
+  </ul>
+<% end %>
+
 
     <%end%>
-
-
-
-
-
 <p id="add-client"> <a href="/clients/new">Add Client</a></p>
