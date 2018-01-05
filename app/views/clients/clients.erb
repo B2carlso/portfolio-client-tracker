@@ -14,8 +14,9 @@
     </ul>-->
 
     <p> Your Clients: </p>
-<% if @clients.length == 0 %>
-  <p> You have no clients. Add a client using the link below.</p>
+<% if @user.elients.empty?%>
+<p> You have no clients. Add a client using the link below.</p>
+<p id="add-client"> <a href="/clients/new">Add Client</a></p>
 <% end %>
 <% @clients.each do |client| %>
   <ul>
