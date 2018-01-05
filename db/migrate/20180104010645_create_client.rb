@@ -2,8 +2,8 @@ class CreateClient < ActiveRecord::Migration[5.1]
   def change
     create_table :clients do |t|
       t.string :name
-      t.string :age
-      t.string :trainer_id
+      t.integer :age
+      t.integer :user_id
     end
   end
 end
