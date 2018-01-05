@@ -31,12 +31,30 @@ class ClientsController < ApplicationController
     ##end
   #end
 
-  post '/clients' do
-    if params[:name].empty?
-      redirect '/clients/new'
+  #post '/clients' do
+  #  if params[:name].empty?
+    #  redirect '/clients/new'
+  #  else
+    #  @client = Client.create(name: params[:name], age: params[:age], user_id: current_user.id)
+    #  redirect :"/clients/#{@client.id}"
+  #  end
+#  end
+
+post "/clients" do
+    if params[:name] != "" && params[:age] != ""
+      if Client.find_by(name: params[:name] != nil)
+        redirect "/clients/new"
+      end
+
+      clients = Client.new(name: params[:name], age: params[:age])
+      user = current_user
+
+      user.clients << clients
+      user.save
+      client.save
+      redirect "/users/" + user.id.to_s
     else
-      @client = Client.create(name: params[:name], age: params[:age], user_id: current_user.id)
-      redirect :"/clients/#{@client.id}"
+      redirect "/clients/new"
     end
   end
 
