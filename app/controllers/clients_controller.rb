@@ -52,6 +52,7 @@ post "/clients" do
       user.clients << clients
       user.save
       clients.save
+      binding.pry
       redirect "/clients" #+ user.id.to_s
     else
       redirect "/clients/new"
