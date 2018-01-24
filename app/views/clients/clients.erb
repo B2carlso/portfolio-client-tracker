@@ -1,4 +1,5 @@
-<h1>Welcome, <%=@user.username%></h1>
+<h1>Welcome <%=@user.username%>!</h1>
+<h2>Your Clients:</h2>
 
 <!--<%Client.all.each do |client|%>-->
 <!--<%=client.name%>-->
@@ -12,11 +13,9 @@
       <li><a href="/clients/<%=client.id%>"><%= client.name %></a></li>
       <%end%>
     </ul>-->
-
-    <p> Your Clients: </p>
 <% if @user.clients.empty?%>
-<p> You have no clients. Add a client using the link below.</p>
-<p id="add-client"> <a href="/clients/new">Add Client</a></p>
+<h3> You have no clients. Add a client using the link below.</h3>
+<h2><a href="/clients/new">Add Client</a></h2>
 <% end %>
 <% @clients.each do |client| %>
   <ul>
@@ -24,6 +23,5 @@
   </ul>
 <% end %>
 
-
-    <%end%>
 <p id="add-client"> <a href="/clients/new">Add Client</a></p>
+    <%end%>
