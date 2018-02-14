@@ -1,8 +1,21 @@
 <h1>New Client</h1>
-<form action="/clients" method="post">
+<!--form action="/clients" method="post">
   <input type="text"  name="name" placeholder= "Client Name" >
   <br>
   <input type="text" name="age" placeholder= "Age">
   <br>
   <input type="submit" value="submit" >
+</form-->
+<form action="/clients" method="post">
+  <div class="form_group">
+    <label for="name">Name:</label>
+    <input id ="name" type="text" class="form-control" name="client[name]" value="">
+    <br></br>
+  </div>
+  <div class="form_group">
+    <label for="race">Age:</label>
+    <input id ="race" type="text" class="form-control" name="client[age]" value="">
+    <br></br>
+  </div>
+  <p><button class="btn btn-default" type="submit" name="submit" value="submit">Add</button> <a href="/users/<%= current_user.slug %>">Cancel</a></p>
 </form>

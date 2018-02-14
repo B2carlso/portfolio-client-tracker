@@ -1,0 +1,17 @@
+<h1>Client</h1>
+<br />
+<h4>
+  Name - <%= @client.name %>
+  <br></br>
+  Age - <%= @client.age %>
+</h4>
+<br />
+<% if @client.user_id == @current_user.id %>
+  <form action="/clients/<%= @client.id %>/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <p>
+      <a href="/clients/<%= @client.id %>/edit">Edit</a>
+      <button class="btn btn-default" type="submit" name="delete" value="delete">Delete</button>
+    </p>
+  </form>
+<% end %>

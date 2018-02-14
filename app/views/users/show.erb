@@ -1,8 +1,10 @@
-<h1>Your Clients</h1>
-<%@trainer.clients.all.each do |client|%>
-  <%=client.name%>
-  <%if @user.clients.empty?%>
-        <h2 >Add a client</h2>
-        <% end %>
-  <br></br>
-<%end%>
+<h1>Hello <%= @user.username %></h1>
+<h4>Your Clients:</h4>
+<% if @user.clients.empty? %>
+  <p>You have no clients. Add a client using the link below.</p>
+<h2><a href="/clients/new">Add Client</a></h2>
+<% else %>
+  <% @user.clients.each do |client| %>
+    <a href= "/clients/<%= client.id %>"><%= client.name %> - <%= client.age %></a><br />
+  <% end %>
+<% end %>

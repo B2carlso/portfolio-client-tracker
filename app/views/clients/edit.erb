@@ -1,10 +1,15 @@
 <h3>Edit Client:</h3>
-<p><%=@tweet.content%></p>
-<form action="/clients/<%=@client.id%>" method="post">
-  <input type="hidden" name="_method" value="patch">
-  <input type="text" name="name" placeholder="Name">
-  <br>
-  <input type="text" name="age" placeholder="Age">
-  <br>
-  <input type="submit" value="submit">
+<form action="/clients/<%= @client.id %>" method="post">
+  <input id ="hidden" type="hidden" name="_method" value="patch">
+  <div class="form_group">
+    <label for="name">Name:</label>
+    <input id="name" type="text" class="form-control" name="client[name]" value="<%= @client.name %>" required>
+    <br></br>
+  </div>
+  <div class="form_group">
+    <label for="age">Age:</label>
+    <input id="age" type="text" class="form-control" name="client[age]" value="<%= @client.age %>" required>
+    <br></br>
+  </div>
+  <button class="btn btn-default" type="submit" name="submit" value="submit">Submit</button> <a href="/clients/<%= @client.id %>">Cancel</a>
 </form>
