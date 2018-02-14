@@ -1,100 +1,77 @@
 class ClientsController < ApplicationController
 
   get '/clients' do
-     if logged_in?
-       @user = current_user
-       @clients = Client.all
-       erb :'clients/clients'
-     else
-       redirect to 'users/login'
-     end
-   end
-
-   get '/clients/new' do
-
-     if logged_in?
-        erb :'clients/new'
-      else
-        redirect '/login'
-      end
-    end
-
-    #post '/clients' do
-    #if params[:name].empty?
-      #redirect "/clients/new"
-    #else
-      #@client = Client.create(:name => params[:name])
-      #@client.user_id = current_user.id
-      #@client = Client.create(name: params[:name], age: params[:age], user_id: current_user.id)
-
-      #@client.save
-    ##end
-  #end
-
-  #post '/clients' do
-  #  if params[:name].empty?
-    #  redirect '/clients/new'
-  #  else
-    #  @client = Client.create(name: params[:name], age: params[:age], user_id: current_user.id)
-    #  redirect :"/clients/#{@client.id}"
-  #  end
-#  end
-
-post "/clients" do
-    if params[:name] != "" && params[:age] != ""
-      if Client.find_by(name: params[:name] != nil)
-        redirect "/clients/new"
-      end
-
-      clients = Client.new(name: params[:name], age: params[:age])
-      user = current_user
-
-      user.clients << clients
-      user.save
-      clients.save
-      binding.pry
-      redirect "/clients" #+ user.id.to_s
+    if !logged_in?
+      redirect to '/'
     else
-      redirect "/clients/new"
+      @clients = clients.all
+      erb :'/clients/index'
+    end
+  end
+
+  get '/clients/new' do
+    if !logged_in?
+      redirect to '/'
+    else
+      erb :'/clients/new'
+    end
+  end
+
+  post '/clients' do
+    client = Client.new(params[:client])
+    client.user_id = session[:user_id]
+    client.save
+    if client.save
+      redirect to "/clients/#{client.id}"
+    else
+      redirect to '/clients/new'
     end
   end
 
   get '/clients/:id' do
-    if logged_in?
-      @client = Client.find_by_id(params[:id])
-      erb :'clients/show_client'
+    if !logged_in?
+      redirect to '/'
     else
-      redirect '/login'
+      @client = Client.find(params[:id])
+      @current_user = current_user
+      erb :'/clients/show'
     end
   end
 
   get '/clients/:id/edit' do
-    @client = Client.find_by_id(params[:id])
-    if logged_in?
-      erb :'clients/edit'
+    if !logged_in?
+      redirect to '/'
     else
-      redirect '/login'
+      if current_user.id == Client.find(params[:id]).user_id
+        @client = Client.find(params[:id])
+        erb :'/clients/edit'
+      else
+        redirect to "/clients/#{params[:id]}"
+      end
     end
   end
 
   patch '/clients/:id' do
-    @client = Client.find_by_id(params[:id])
-    unless params[:content].empty?
-      @client.name = params[:name]
-      @client.save
-      erb :'clients/show_client'
+    if current_user.id == Client.find(params[:id]).user_id
+      client = Client.find(params[:id])
+      client.update(params[:client])
+      if client.save
+        redirect to "/clients/#{client.id}"
+      else
+        redirect to "/clients/#{client.id}/edit"
+      end
     else
-      redirect "/clients/#{@client.id}/edit"
+      redirect to "/clients/#{params[:id]}"
     end
   end
 
   delete '/clients/:id/delete' do
-    @client = Client.find_by_id(params[:id])
-    if logged_in? && @client.user_id == current_user.id
-      @client.delete
-      redirect '/clients'
+    if current_user.id == Client.find(params[:id]).user_id
+      client = Client.find(params[:id])
+      client.delete
+      redirect to "/users/#{current_user.slug}"
     else
-      redirect '/login'
+      redirect to "/clients/#{params[:id]}"
     end
   end
 end
